@@ -1,8 +1,4 @@
-﻿using IllusionPlugin;
-using System;
-using System.Reflection;
-
-namespace BSDarthMaul
+﻿namespace BSDarthMaul
 {
     //public class LeaderboardsModelDetours
     //{
@@ -86,7 +82,7 @@ namespace BSDarthMaul
     //                    }
     //                }
     //            }
-                    
+
     //            if (HDModPlugin != null)
     //            {
     //                Type type = HDModPlugin.GetType();

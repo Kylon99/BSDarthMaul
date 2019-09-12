@@ -1,26 +1,19 @@
-﻿using BSDarthMaul.Components;
-using HMUI;
-using PlayHooky;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using UnityEngine;
-using CustomUI.GameplaySettings;
+﻿using CustomUI.GameplaySettings;
+using CustomUI.Utilities;
+
 namespace BSDarthMaul
 {
     public class DarthMaulUI
     {
         public static void CreateUI()
         {
-            //Haven't added Icons for now, can refer to Github readme for CustomUI for adding icons, hint text is also fairly basic atm
+            var darthMaulIcon = UIUtilities.LoadSpriteFromResources("BSDarthMaul.BSDarthMaul.Resources.DarthMaul.png");
 
-            var darthMaulMenu = GameplaySettingsUI.CreateSubmenuOption(GameplaySettingsPanels.ModifiersRight, "Darth Maul Settings", "MainMenu", "DarthMaulMenu1", "Darth Maul Plugin Options");
+            var darthMaulMenu = GameplaySettingsUI.CreateSubmenuOption(GameplaySettingsPanels.ModifiersRight, "Darth Maul Settings", "MainMenu", "DarthMaulMenu1", "Darth Maul Plugin Options", darthMaulIcon);
 
-            var darthMaulToggle = GameplaySettingsUI.CreateToggleOption(GameplaySettingsPanels.ModifiersRight, "Darth Maul", "DarthMaulMenu1",  "Enable Darth Maul Mode");
+            var darthMaulToggle = GameplaySettingsUI.CreateToggleOption(GameplaySettingsPanels.ModifiersRight, "Darth Maul", "DarthMaulMenu1", "Enable Darth Maul Mode", darthMaulIcon);
             darthMaulToggle.GetValue = Plugin.IsDarthModeOn;
-            darthMaulToggle.OnToggle += (value) => { Plugin.IsDarthModeOn = value;  };
+            darthMaulToggle.OnToggle += (value) => { Plugin.IsDarthModeOn = value; };
 
             var oneHandedToggle = GameplaySettingsUI.CreateToggleOption(GameplaySettingsPanels.ModifiersRight, "One Handed", "DarthMaulMenu1", "One Handed Darth Maul");
             oneHandedToggle.GetValue = Plugin.IsOneHanded;

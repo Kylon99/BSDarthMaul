@@ -1,4 +1,4 @@
-# Darth Maul Plugin v0.7.1
+# ![IMG](BSDarthMaul/Resources/DarthMaul64.png) Darth Maul 
 
 * Darth Maul mode
 * One controller support
@@ -6,19 +6,26 @@
 * Auto-detect functions that enables you to join/split the sabers during a map.
 * Switchable main controller.
 
-# Configuration
+## Configuration
 
-- Run the game once to generate the settings, they are in Beat Saber/UserData/modprefs.ini.
+- Run the game once to generate the settings, they are in Beat Saber/UserData/DarthMaul.ini.
 - You can Toggle Darth Maul and other settings in the Gameplay Modifiers Panel on the left when selecting songs
 
-```ini
-[Darth Maul Plugin]
-DMSerparation=15
-DMDarthMode=0
-DMOneHanded=0
-DMAutoDetect=0
+## Requirements
+This mod depends on the following mods.  Download them at [BeatMods](https://beatmods.com).
 
-#  0 for left, 1 for right
-DMMainController=1
+* https://github.com/nike4613/BeatSaber-IPA-Reloaded/
+* https://github.com/Kylemc1413/Beat-Saber-Utils
+* https://github.com/brian91292/BeatSaber-CustomUI/
 
-```
+## Installation
+
+Drop the BSDarthMaul.dll file into your Plugins folder under your BeatSaber folder.
+
+## Changelog
+
+### 0.7.4
+* Updated manifest to indicate support for Beat Saber 1.3.0
+* Updated to use new BS IPA 
+* Added new fancy icons
+* Removed unused dependency on Harmony

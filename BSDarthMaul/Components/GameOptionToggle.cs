@@ -1,12 +1,6 @@
-﻿using HMUI;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using IllusionPlugin;
 
 namespace BSDarthMaul.Components
 {
@@ -59,9 +53,9 @@ namespace BSDarthMaul.Components
         public virtual void HandleNoEnergyToggleDidSwitch(HMUI.Toggle toggle, bool isOn)
         {
             this.Value = isOn;
-            ModPrefs.SetBool(Plugin.PluginName, _prefKey, isOn);
+            Plugin.config.SetBool(Plugin.PluginName, _prefKey, isOn);
             OnToggle?.Invoke(isOn);
         }
-        
+
     }
 }

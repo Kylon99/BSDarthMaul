@@ -1,8 +1,4 @@
-﻿using IllusionPlugin;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace BSDarthMaul.Components
 {
@@ -10,7 +6,7 @@ namespace BSDarthMaul.Components
     {
         protected int[] _separations;
 
-        public SeparationSettingsController(GameObject parent, GameObject target, string goname, string text) 
+        public SeparationSettingsController(GameObject parent, GameObject target, string goname, string text)
             : base(parent, target, goname, text)
         {
         }
@@ -44,8 +40,7 @@ namespace BSDarthMaul.Components
 
         protected override string TextForValue(int idx)
         {
-            return string.Format("{0:0.00}", 1f*this._separations[idx]/100);
+            return string.Format("{0:0.00}", 1f * this._separations[idx] / 100);
         }
     }
 }
-

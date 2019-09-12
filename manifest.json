@@ -1,0 +1,20 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/nike4613/ModSaber-MetadataFileSchema/master/Schema.json",
+  "author": "Kylon99",
+  "description": "Adds Darth Maul mode as well as other related features to Beat Saber",
+  "features": [],
+  "gameVersion": "1.3.0",
+  "icon": "BSDarthMaul.BSDarthMaul.Resources.DarthMaulColored.png",
+  "id": "BSDarthMaul",
+  "name": "BSDarthMaul",
+  "version": "0.7.4",
+  "dependsOn": {
+    "BSIPA": "^3.13.2",
+    "CustomUI": "^1.6.0",
+    "BS Utils": "^1.3.5"
+  },
+  "links": {
+    "project-home": "https://github.com/Kylon99/BSDarthMaul",
+    "project-source": "https://github.com/Kylon99/BSDarthMaul/tree/master/BSDarthMaul"
+  }
+}

@@ -1,16 +1,15 @@
-using IllusionPlugin;
+﻿using IPA;
 using System;
 using System.IO;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Harmony;
+
 namespace BSDarthMaul
 {
-	public class Plugin : IPlugin
-	{
-        public static string PluginName = "Darth Maul Plugin";
-        public const string VersionNum = "0.7.1";
+    public class Plugin : IBeatSaberPlugin
+    {
+        public static string PluginName = "DarthMaul";
+        public const string VersionNum = "0.7.4";
 
         public string Name => PluginName;
         public string Version => VersionNum;
@@ -29,17 +28,18 @@ namespace BSDarthMaul
         public const string KeyAutoDetect = "DMAutoDetect";
         public const string KeyNoArrowRandLv = "DMNoArrowRandLv";
 
-        public static HarmonyInstance harmony;
+        public static BS_Utils.Utilities.Config config;
+
         public static bool IsDarthModeOn
         {
             get
             {
-                return ModPrefs.GetBool(PluginName, KeyDarthMode, true);
+                return config.GetBool(PluginName, KeyDarthMode, true);
             }
 
             set
             {
-                ModPrefs.SetBool(PluginName, KeyDarthMode, value);
+                config.SetBool(PluginName, KeyDarthMode, value);
             }
         }
 
@@ -47,16 +47,17 @@ namespace BSDarthMaul
         {
             get
             {
-                return ModPrefs.GetBool(PluginName, KeyOneHanded, true);
+                return config.GetBool(PluginName, KeyOneHanded, true);
             }
 
             set
             {
-                ModPrefs.SetBool(PluginName, KeyOneHanded, value);
+                config.SetBool(PluginName, KeyOneHanded, value);
             }
         }
 
-        public enum ControllerType {
+        public enum ControllerType
+        {
             LEFT,
             RIGHT
         }
@@ -65,12 +66,12 @@ namespace BSDarthMaul
         {
             get
             {
-                return (ControllerType)ModPrefs.GetInt(PluginName, KeyMainController, 1);
+                return (ControllerType)config.GetInt(PluginName, KeyMainController, 1);
             }
 
             set
             {
-                ModPrefs.SetInt(PluginName, KeyMainController, (int)value);
+                config.SetInt(PluginName, KeyMainController, (int)value);
             }
         }
 
@@ -78,12 +79,12 @@ namespace BSDarthMaul
         {
             get
             {
-                return ModPrefs.GetBool(PluginName, KeyAutoDetect, true);
+                return config.GetBool(PluginName, KeyAutoDetect, true);
             }
 
             set
             {
-                ModPrefs.SetBool(PluginName, KeyAutoDetect, value);
+                config.SetBool(PluginName, KeyAutoDetect, value);
             }
         }
 
@@ -91,12 +92,12 @@ namespace BSDarthMaul
         {
             get
             {
-                return ModPrefs.GetInt(PluginName, KeySeparation, 15);
+                return config.GetInt(PluginName, KeySeparation, 15);
             }
 
             set
             {
-                ModPrefs.SetInt(PluginName, KeySeparation, value);
+                config.SetInt(PluginName, KeySeparation, value);
             }
         }
 
@@ -104,12 +105,12 @@ namespace BSDarthMaul
         {
             get
             {
-                return ModPrefs.GetInt(Plugin.PluginName, KeyNoArrowRandLv, 0);
+                return config.GetInt(Plugin.PluginName, KeyNoArrowRandLv, 0);
             }
 
             set
             {
-                ModPrefs.SetInt(PluginName, KeyNoArrowRandLv, value);
+                config.SetInt(PluginName, KeyNoArrowRandLv, value);
             }
         }
 
@@ -117,33 +118,45 @@ namespace BSDarthMaul
         {
             SceneManager.activeSceneChanged += SceneManagerOnActiveSceneChanged;
             SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+            Plugin.config = new BS_Utils.Utilities.Config(Plugin.PluginName);
             CheckForUserDataFolder();
             _instance = this;
-            harmony = HarmonyInstance.Create("com.PureDark.BeatSaber.BSDarthMaul");
         }
 
         private void SceneManager_sceneLoaded(Scene scene, LoadSceneMode arg1)
         {
-            if(scene.name == "MenuCore")
-            DarthMaulUI.CreateUI();
+            if (scene.name == "MenuCore")
+                DarthMaulUI.CreateUI();
         }
 
         public void OnApplicationQuit()
-		{
+        {
             SceneManager.activeSceneChanged -= SceneManagerOnActiveSceneChanged;
             _instance = null;
         }
 
-		private void SceneManagerOnActiveSceneChanged(Scene arg0, Scene scene)
-		{
+        public void OnActiveSceneChanged(Scene prevScene, Scene nextScene)
+        {
+        }
+
+        public void OnSceneLoaded(Scene scene, LoadSceneMode sceneMode)
+        {
+        }
+
+        public void OnSceneUnloaded(Scene scene)
+        {
+        }
+
+        private void SceneManagerOnActiveSceneChanged(Scene arg0, Scene scene)
+        {
             try
             {
                 Console.WriteLine("scene.name == " + scene.name);
                 if (scene.name == "MenuCore")
                 {
-                        //panelBehavior = new GameObject("panelBehavior").AddComponent<PanelBehavior>();
-                    }
-                    else if (scene.name == "GameCore")
+                    //panelBehavior = new GameObject("panelBehavior").AddComponent<PanelBehavior>();
+                }
+                else if (scene.name == "GameCore")
                 {
                     //if (!loader)
                     //    loader = Resources.FindObjectsOfTypeAll<AsyncScenesLoader>().FirstOrDefault();
@@ -170,29 +183,29 @@ namespace BSDarthMaul
             {
                 Directory.CreateDirectory(userDataPath);
             }
-            if ("".Equals(ModPrefs.GetString(PluginName, KeyDarthMode, "")))
+            if ("".Equals(config.GetString(PluginName, KeyDarthMode, "")))
             {
-                ModPrefs.SetBool(PluginName, KeyDarthMode, false);
+                config.SetBool(PluginName, KeyDarthMode, false);
             }
-            if ("".Equals(ModPrefs.GetString(PluginName, KeyOneHanded, "")))
+            if ("".Equals(config.GetString(PluginName, KeyOneHanded, "")))
             {
-                ModPrefs.SetBool(PluginName, KeyOneHanded, false);
+                config.SetBool(PluginName, KeyOneHanded, false);
             }
-            if ("".Equals(ModPrefs.GetString(PluginName, KeyMainController, "")))
+            if ("".Equals(config.GetString(PluginName, KeyMainController, "")))
             {
-                ModPrefs.SetInt(PluginName, KeyMainController, 1);
+                config.SetInt(PluginName, KeyMainController, 1);
             }
-            if ("".Equals(ModPrefs.GetString(PluginName, KeyAutoDetect, "")))
+            if ("".Equals(config.GetString(PluginName, KeyAutoDetect, "")))
             {
-                ModPrefs.SetBool(PluginName, KeyAutoDetect, false);
+                config.SetBool(PluginName, KeyAutoDetect, false);
             }
-            if ("".Equals(ModPrefs.GetString(PluginName, KeySeparation, "")))
+            if ("".Equals(config.GetString(PluginName, KeySeparation, "")))
             {
-                ModPrefs.SetInt(PluginName, KeySeparation, 15);
+                config.SetInt(PluginName, KeySeparation, 15);
             }
-            if ("".Equals(ModPrefs.GetString(PluginName, KeyNoArrowRandLv, "")))
+            if ("".Equals(config.GetString(PluginName, KeyNoArrowRandLv, "")))
             {
-                ModPrefs.SetInt(PluginName, KeyNoArrowRandLv, 0);
+                config.SetInt(PluginName, KeyNoArrowRandLv, 0);
             }
         }
 
@@ -229,15 +242,15 @@ namespace BSDarthMaul
         }
 
         public void OnLevelWasLoaded(int level)
-		{
-		}
+        {
+        }
 
-		public void OnLevelWasInitialized(int level)
-		{
-		}
+        public void OnLevelWasInitialized(int level)
+        {
+        }
 
-		public void OnUpdate()
-		{
+        public void OnUpdate()
+        {
         }
 
         public void OnLateUpdate()
@@ -246,8 +259,8 @@ namespace BSDarthMaul
         }
 
         public void OnFixedUpdate()
-		{
-		}
+        {
+        }
 
 
     }
