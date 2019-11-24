@@ -24,6 +24,10 @@ Drop the BSDarthMaul.dll file into your Plugins folder under your BeatSaber fold
 
 ## Changelog
 
+### 0.7.5
+* Updated manifest to indicate support for Beat Saber 1.5.0
+* Fixed icon details to be more visible in game
+
 ### 0.7.4
 * Updated manifest to indicate support for Beat Saber 1.3.0
 * Updated to use new BS IPA 

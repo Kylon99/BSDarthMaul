@@ -9,7 +9,7 @@ namespace BSDarthMaul
     public class Plugin : IBeatSaberPlugin
     {
         public static string PluginName = "DarthMaul";
-        public const string VersionNum = "0.7.4";
+        public const string VersionNum = "0.7.5";
 
         public string Name => PluginName;
         public string Version => VersionNum;
